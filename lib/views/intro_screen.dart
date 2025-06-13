@@ -2,6 +2,55 @@ import 'dart:async';
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter/material.dart';
+
+class IntroPageWidget extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+
+  const IntroPageWidget({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(imageUrl, height: 200),
+          const SizedBox(height: 24),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              decoration: TextDecoration.none,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              decoration: TextDecoration.none,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -45,96 +94,103 @@ class _IntroScreenState extends State<IntroScreen> {
     super.dispose();
   }
 
+  
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: Customappbar(),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Stack(
-        children: [
-          PageView(
-            controller: _controller,
-            children: const [
-              IntroPage(
-                imageUrl: 'https://picsum.photos/200',
-                title: 'Welcome to Crunsee',
-                subtitle: 'Your trusted currency converter and market guide.',
-              ),
-              IntroPage(
-                imageUrl: 'https://picsum.photos/201',
-                title: 'Fast & Accurate',
-                subtitle: 'Convert currencies instantly and with precision.',
-              ),
-              IntroPage(
-                imageUrl: 'https://picsum.photos/202',
-                title: 'Alerts & Insights',
-                subtitle:
-                    'Set rate alerts and get global insights at a glance.',
-              ),
-            ],
+Widget build(BuildContext context) {
+  return Container(
+    decoration: const BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Color(0xFF4A00E0), // Example purple
+          Color(0xFF8E2DE2), // Lighter purple or any second color
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
+    ),
+  child: Stack(
+    children: [
+      PageView(
+        controller: _controller,
+        children: const [
+          IntroPage(
+            imageUrl: '/lib/images/currency-exchange-icon-on-dark-background-vector-37708912-removebg-preview.png',
+            title: 'Live Currency Rates',
+            subtitle: 'Get up-to-date exchange rates for all major currencies.',
           ),
-          Positioned(
-            bottom: 200,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: SmoothPageIndicator(
-                controller: _controller,
-                count: _totalPages,
-                effect: WormEffect(
-                  dotColor: Theme.of(context).colorScheme.primary,
-                  activeDotColor: Theme.of(context).colorScheme.secondary,
-                  dotHeight: 10,
-                  dotWidth: 10,
-                ),
-              ),
-            ),
+          IntroPage(
+            imageUrl: '/lib/images/linear-graph-chart-icon-vector-20976131-removebg-preview.png',
+            title: 'Interactive Charts',
+            subtitle: 'Visualize historical data and track market trends easily.',
           ),
-          Positioned(
-            bottom: 80,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 118, 189, 255),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 15,
-                    ),
-                    minimumSize: const Size(150, 60), // width, height
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/loginPage');
-                  },
-                  child: const Text('Login Now'),
-                ),
-                const SizedBox(height: 20),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Color.fromARGB(255, 118, 189, 255),
-                    minimumSize: const Size(150, 50),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 15,
-                    ),
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/MainScreen');
-                  },
-                  child: const Text('Skip'),
-                ),
-              ],
-            ),
+          IntroPage(
+            imageUrl: '/lib/images/new-message-inbox-notification-vector-icon-two-incoming-email-messages-118842081-removebg-preview.png',
+            title: 'Smart Alerts',
+            subtitle: 'Set alerts for your desired rates and stay informed.',
           ),
         ],
       ),
-    );
+      Positioned(
+        bottom: 120,
+        left: 0,
+        right: 0,
+        child: Center(
+          child: SmoothPageIndicator(
+            controller: _controller,
+            count: _totalPages,
+            effect: WormEffect(
+              dotColor: Colors.white38,
+              activeDotColor: Colors.white,
+              dotHeight: 10,
+              dotWidth: 10,
+            ),
+          ),
+        ),
+      ),
+      Positioned(
+        bottom: 40,
+        left: 0,
+        right: 0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/loginPage');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Color(0xFF6B4EFF),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              child: const Text('Login Now'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/MainScreen');
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              child: const Text('Skip'),
+            ),
+          ],
+        ),
+      ),
+    ],
+  ),
+);
   }
 }
 

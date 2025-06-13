@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
 class Customappbar extends StatelessWidget implements PreferredSizeWidget {
+  const Customappbar({super.key});
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
       title: Text(
         'Crunsee',
-        style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onPrimary,
-            ),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      elevation: 0,
+      centerTitle: true,
     );
   }
 }
