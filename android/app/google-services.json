@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "217663422056",
+    "project_id": "crunsee-70975",
+    "storage_bucket": "crunsee-70975.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217663422056:android:ed894c84c534ede27fc5dd",
+        "android_client_info": {
+          "package_name": "com.example.crunsee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsQ6Mx_dIrAB3R3-RACRLvNPX17gx2vd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

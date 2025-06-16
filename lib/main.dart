@@ -1,8 +1,17 @@
+<<<<<<< HEAD
+=======
+import 'package:crunsee/firebase_options.dart';
+>>>>>>> b40bcb6 (Firebsae Connection and login sign up functions wrote some backend code)
 import 'package:crunsee/views/MainScreen.dart';
 import 'package:crunsee/views/homepage.dart';
 import 'package:crunsee/views/intro_screen.dart';
 import 'package:crunsee/views/loginScreen.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+>>>>>>> b40bcb6 (Firebsae Connection and login sign up functions wrote some backend code)
 
 class MyApp extends StatelessWidget {
 
@@ -51,7 +60,7 @@ final ThemeData appTheme = ThemeData(
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
      title: 'Crunsee',
      theme: ThemeData(
       fontFamily: 'Poppins',
@@ -69,6 +78,9 @@ final ThemeData appTheme = ThemeData(
     );
   }
 }
-void main() {
+void main()async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(MyApp());
 }

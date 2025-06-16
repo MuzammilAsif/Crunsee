@@ -1,3 +1,4 @@
+import 'package:crunsee/Backend.dart';
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +7,6 @@ class Loginscreen extends StatefulWidget {
 
   @override
   State<Loginscreen> createState() => _LoginscreenState();
-  
-  
 }
 
 class _LoginscreenState extends State<Loginscreen> {
@@ -27,6 +26,7 @@ class _LoginscreenState extends State<Loginscreen> {
   
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    Backend backend = Backend();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +134,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/Mainscreen');
+                    backend.signin(emailController.text, passwordController.text);
                   // Handle login logic here
                   },
                   child: const Text('Login Now'),

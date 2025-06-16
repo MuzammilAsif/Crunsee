@@ -37,6 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   smooth_page_indicator: ^1.2.1
   curved_navigation_bar: ^1.0.6
+
+  firebase_core:
+  get:
+  firebase_auth:
+  cloud_firestore:
   
 
 dev_dependencies:
