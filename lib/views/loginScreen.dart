@@ -11,138 +11,149 @@ class Loginscreen extends StatefulWidget {
 
 class _LoginscreenState extends State<Loginscreen> {
   bool _isLoading = true;
+  bool _obscurePassword = true;
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final Backend backend = Backend();
 
   @override
   void initState() {
     super.initState();
-
-    // Simulate loading delay (1 seconds)
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         _isLoading = false;
       });
     });
   }
-  
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    Backend backend = Backend();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Customappbar(),
       body: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).scaffoldBackgroundColor,
+         width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF6A1B9A),
+              Color(0xFF8E24AA),
+              Color(0xFFBA68C8),
+            ],
+          ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              ///// Circle Progress Indicator /////
-              _isLoading
-            ? CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.primary,
-              ):
-
-              ///// Page Code/////
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Image.asset('assets/images/logo.png', height: 100),
-                    Image.network("https://picsum.photos/200"),
-                    const SizedBox(height: 20),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(color: Colors.white),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color:
-                                Colors.lightBlueAccent, // Light blue when inactive
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: _isLoading
+                ? CircularProgressIndicator(color: Colors.white)
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.network(
+                        '/lib/images/logo.png', // Replace with valid path
+                        height: 120,
+                      ),
+                      const SizedBox(height: 32),
+                      TextField(
+                        controller: emailController,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email, color: Colors.white),
+                          labelText: 'Email',
+                          labelStyle: const TextStyle(color: Colors.white70),
+                          filled: true,
+                          fillColor: Colors.white10,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white30),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            // color:Theme.of(context).colorScheme.primary, // Dark blue from theme
-                            color: Colors.blue, // Dark blue from theme
-                            width: 2,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white, width: 1.5),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
-                      controller: emailController,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        labelStyle: TextStyle(color: Colors.white),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.lightBlueAccent, // Light blue when inactive
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: passwordController,
+                        obscureText: _obscurePassword,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.white70,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            // color:Theme.of(context).colorScheme.primary, // Dark blue from theme
-                            color: Colors.blue, // Dark blue from theme
-                            width: 2,
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(color: Colors.white70),
+                          filled: true,
+                          fillColor: Colors.white10,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white30),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white, width: 1.5),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
-                      controller: passwordController,
-                      obscureText: true,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Don't have an account?",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary,
+                      const SizedBox(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Don't have an account?",
+                            style: TextStyle(color: Colors.white70),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/register');
-                          },
-                          child: Text(
-                            'Register here',
-                            style: TextStyle(
-                              color: Colors.lightBlue,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/register');
+                            },
+                            child: const Text(
+                              'Register here',
+                              style: TextStyle(
+                                color: Colors.lightBlueAccent,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightBlueAccent,
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(double.infinity, 55),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          textStyle: const TextStyle(fontSize: 18),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 24), // Space between text and button
-                    ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blueAccent,
-                    padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 15,),
-                    minimumSize: const Size(150, 60), // width, height
-                    textStyle: const TextStyle(fontSize: 18),
+                        onPressed: () {
+                          backend.signin(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                        },
+                        child: const Text('Login Now'),
+                      ),
+                    ],
                   ),
-                  onPressed: () {
-                    backend.signin(emailController.text, passwordController.text);
-                  // Handle login logic here
-                  },
-                  child: const Text('Login Now'),
-                ),
-                  ],
-                ),
-              ),
-            ],
           ),
         ),
       ),
