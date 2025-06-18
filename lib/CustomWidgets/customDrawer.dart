@@ -6,6 +6,7 @@ class Customdrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+           // ✅ Set background to white
         child: ListView(
           padding: EdgeInsets.zero,
           children: [

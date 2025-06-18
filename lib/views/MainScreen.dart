@@ -19,6 +19,7 @@ class Mainscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: Customappbar(),
       drawer: Customdrawer(),
       backgroundColor: const Color(0xFF1C1C1E), // Dark theme background
