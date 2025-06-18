@@ -1,6 +1,9 @@
 import 'package:crunsee/Backend.dart';
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
+import 'package:crunsee/views/register.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -120,7 +123,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/register');
+                              Get.to(Register());
                             },
                             child: const Text(
                               'Register here',

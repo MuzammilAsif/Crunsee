@@ -1,5 +1,8 @@
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
+import 'package:crunsee/views/intro_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -40,7 +43,7 @@ class _HomepageState extends State<Homepage> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/welcomePage');
+                  Get.to(IntroScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
