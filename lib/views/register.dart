@@ -1,37 +1,19 @@
 import 'package:crunsee/Backend.dart';
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
-import 'package:crunsee/views/register.dart';
+import 'package:crunsee/views/loginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 
-class Loginscreen extends StatefulWidget {
-  const Loginscreen({super.key});
+class Register extends StatelessWidget {
 
-  @override
-  State<Loginscreen> createState() => _LoginscreenState();
-}
+TextEditingController email = TextEditingController();
+TextEditingController Username = TextEditingController();
+TextEditingController password = TextEditingController();
 
-class _LoginscreenState extends State<Loginscreen> {
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Simulate loading delay (1 seconds)
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
-  }
-  
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    Backend backend = Backend();
   @override
   Widget build(BuildContext context) {
+    Backend backend = Backend();
     return Scaffold(
       appBar: Customappbar(),
       body: Container(
@@ -43,23 +25,35 @@ class _LoginscreenState extends State<Loginscreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
-              ///// Circle Progress Indicator /////
-              _isLoading
-            ? CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.primary,
-              ):
-
               ///// Page Code/////
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Image.asset('assets/images/logo.png', height: 100),
-                    Image.network("https://picsum.photos/200"),
-                    const SizedBox(height: 20),
-                    TextField(
+                    TextField( //Username field
+                      decoration: InputDecoration(
+                        labelText: 'UserName',
+                        labelStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color:
+                                Colors.lightBlueAccent, // Light blue when inactive
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            // color:Theme.of(context).colorScheme.primary, // Dark blue from theme
+                            color: Colors.blue, // Dark blue from theme
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      controller: email,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 16),
+                    TextField( //Email field
                       decoration: InputDecoration(
                         labelText: 'Email',
                         labelStyle: TextStyle(color: Colors.white),
@@ -77,7 +71,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           ),
                         ),
                       ),
-                      controller: emailController,
+                      controller: email,
                       style: TextStyle(color: Colors.white),
                     ),
                     const SizedBox(height: 16),
@@ -98,7 +92,28 @@ class _LoginscreenState extends State<Loginscreen> {
                           ),
                         ),
                       ),
-                      controller: passwordController,
+                      controller: password,
+                      obscureText: true,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 16),
+                    TextField( //confirm password field
+                      decoration: InputDecoration(
+                        labelText: 'Confirm Password',
+                        labelStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.lightBlueAccent, // Light blue when inactive
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            // color:Theme.of(context).colorScheme.primary, // Dark blue from theme
+                            color: Colors.blue, // Dark blue from theme
+                            width: 2,
+                          ),
+                        ),
+                      ),
                       obscureText: true,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -107,17 +122,17 @@ class _LoginscreenState extends State<Loginscreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Don't have an account?",
+                          "Already have an account?",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(Register()); // Navigate to Register page
+                            Get.to(Loginscreen()); // Navigate to Register page
                           },
                           child: Text(
-                            'Register here',
+                            'Login here',
                             style: TextStyle(
                               color: Colors.lightBlue,
                               fontWeight: FontWeight.bold,
@@ -137,10 +152,10 @@ class _LoginscreenState extends State<Loginscreen> {
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
-                    backend.signin(emailController.text, passwordController.text);
+                    backend.signup(email.text, password.text);
                   // Handle login logic here
                   },
-                  child: const Text('Login Now'),
+                  child: const Text('Register Now'),
                 ),
                   ],
                 ),
