@@ -30,6 +30,7 @@ class _LoginscreenState extends State<Loginscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true, // AppBar overlays background
       appBar: Customappbar(),
       body: Container(
          width: double.infinity,
@@ -39,11 +40,10 @@ class _LoginscreenState extends State<Loginscreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF6A1B9A),
-              Color(0xFF8E24AA),
-              Color(0xFFBA68C8),
-            ],
+             colors: [
+          Color(0xFF4A00E0), // Example purple
+          Color(0xFF8E2DE2), // Lighter purple or any second color
+        ],
           ),
         ),
         child: Center(
@@ -56,7 +56,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     children: [
                       Image.network(
                         '/lib/images/logo.png', // Replace with valid path
-                        height: 120,
+                        height: 150,
                       ),
                       const SizedBox(height: 32),
                       TextField(
