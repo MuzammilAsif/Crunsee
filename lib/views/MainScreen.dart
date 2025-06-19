@@ -1,12 +1,13 @@
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
 import 'package:crunsee/CustomWidgets/customDrawer.dart';
+import 'package:crunsee/views/search.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:crunsee/views/notification.dart';
 
 class Mainscreen extends StatelessWidget {
   const Mainscreen({super.key});
 
-  // Sample data (you can replace it with dynamic API data)
   final List<Map<String, dynamic>> currencyPairs = const [
     {'pair': 'USD/PKR', 'rate': '277.50', 'isUp': true},
     {'pair': 'EUR/PKR', 'rate': '302.10', 'isUp': false},
@@ -19,10 +20,9 @@ class Mainscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: Customappbar(),
       drawer: Customdrawer(),
-      backgroundColor: const Color(0xFF1C1C1E), // Dark theme background
+      backgroundColor: const Color(0xFF1C1C1E),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
@@ -48,12 +48,23 @@ class Mainscreen extends StatelessWidget {
         height: 70,
         color: Colors.blue,
         onTap: (index) {
-          // Navigation logic here
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NotificationScreen()),
+            );
+          }
+          // No need to navigate for index 0 (home), already on home
         },
         items: const [
           Icon(Icons.home, size: 30, color: Colors.white),
           Icon(Icons.search, size: 30, color: Colors.white),
-          Icon(Icons.list, size: 30, color: Colors.white),
+          Icon(Icons.notifications, size: 30, color: Colors.white),
         ],
       ),
     );
