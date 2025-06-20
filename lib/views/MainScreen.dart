@@ -14,6 +14,7 @@ class Mainscreen extends StatefulWidget {
   @override
   State<Mainscreen> createState() => _MainscreenState();
 }
+
 class ExchangeRates {
   final Map<String, dynamic> rates;
 
@@ -23,8 +24,10 @@ class ExchangeRates {
     return ExchangeRates(rates: json['conversion_rates']);
   }
 }
- Future<ExchangeRates> fetchExchangeRates() async {
-  final url = Uri.parse('https://v6.exchangerate-api.com/v6/b2cd243453688f5ef8eab529/latest/USD');
+
+Future<ExchangeRates> fetchExchangeRates() async {
+  final url = Uri.parse(
+      'https://v6.exchangerate-api.com/v6/b2cd243453688f5ef8eab529/latest/PKR');
   final response = await http.get(url);
 
   if (response.statusCode == 200) {
@@ -33,6 +36,7 @@ class ExchangeRates {
     throw Exception('Failed to load exchange rates');
   }
 }
+
 class _MainscreenState extends State<Mainscreen> {
   @override
   Widget build(BuildContext context) {
@@ -60,13 +64,13 @@ class _MainscreenState extends State<Mainscreen> {
               final pairs = [
                 {'pair': 'USD/PKR', 'rate': rates['PKR'], 'isUp': true},
                 {
-                  'pair': 'EUR/PKR',
-                  'rate': rates['EUR'] / rates['PKR'],
+                  'pair': 'MGA/PKR',
+                  'rate': rates['MGA'] / rates['PKR'],
                   'isUp': false,
                 },
                 {
-                  'pair': 'GBP/PKR',
-                  'rate': rates['GBP'] / rates['PKR'],
+                  'pair': 'ARS/PKR',
+                  'rate': rates['ARS'] / rates['PKR'],
                   'isUp': true,
                 },
                 {
@@ -80,8 +84,8 @@ class _MainscreenState extends State<Mainscreen> {
                   'isUp': true,
                 },
                 {
-                  'pair': 'SAR/PKR',
-                  'rate': rates['SAR'] / rates['PKR'],
+                  'pair': 'AFN/PKR',
+                  'rate': rates['AFN'] / rates['PKR'],
                   'isUp': true,
                 },
               ];
@@ -142,6 +146,7 @@ class _MainscreenState extends State<Mainscreen> {
     );
   }
 }
+
 class CurrencyBox extends StatelessWidget {
   final String pair;
   final String rate;
