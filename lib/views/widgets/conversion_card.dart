@@ -57,9 +57,12 @@ class _ConversionCardState extends State<ConversionCard> {
             key: formFieldKey,
             controller: amountController,
             decoration: const InputDecoration(
+              focusColor: Colors.white,
               hintText: 'Enter Amount',
+              hintStyle: TextStyle(color: Colors.white70),
             ),
             keyboardType: TextInputType.number,
+            style: const TextStyle(color: Colors.white),
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter an amount';
@@ -121,11 +124,14 @@ class _ConversionCardState extends State<ConversionCard> {
           const SizedBox(height: 20,),
           Text(
             conversion,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: TextStyle(color: Colors.white, fontSize: 16),
             textAlign: TextAlign.center,
           ),
           const Spacer(),
-          const Text('Currency Rates by Open Exchange Rates'),
+          const Text('Currency Rates by Open Exchange Rates', style: TextStyle(
+            color: Colors.white70,
+            fontSize: 12,
+          )),
         ],
       ),
     );

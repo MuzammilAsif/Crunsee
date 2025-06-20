@@ -19,7 +19,10 @@ class DropdownRow extends StatelessWidget {
       children: [
         Text(
           label,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
         ),
         const SizedBox(width: 20,),
         Expanded(
@@ -27,9 +30,10 @@ class DropdownRow extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             menuMaxHeight: 500.0,
             value: value,
-            icon: const Icon(Icons.arrow_drop_down_rounded),
+            icon: const Icon(Icons.arrow_drop_down_rounded, color: Colors.white),
             isExpanded: true,
             onChanged: onChanged,
+            style: const TextStyle(color: Colors.white),
             items: currencies.keys.toSet().toList()
                 .map<DropdownMenuItem<String>>((value) {
               return DropdownMenuItem<String>(

@@ -5,9 +5,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:crunsee/views/notification.dart';
 
-class Mainscreen extends StatelessWidget {
+class Mainscreen extends StatefulWidget {
   const Mainscreen({super.key});
 
+  @override
+  State<Mainscreen> createState() => _MainscreenState();
+}
+
+class _MainscreenState extends State<Mainscreen> {
   final List<Map<String, dynamic>> currencyPairs = const [
     {'pair': 'USD/PKR', 'rate': '277.50', 'isUp': true},
     {'pair': 'EUR/PKR', 'rate': '302.10', 'isUp': false},
@@ -46,20 +51,26 @@ class Mainscreen extends StatelessWidget {
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
         height: 70,
+        index: 0,
         color: Colors.blue,
-        onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
+        animationDuration: const Duration(milliseconds: 300),
+        onTap: (index){
+          if (index == 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Mainscreen()),
+            );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
           } else if (index == 2) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const NotificationScreen()),
             );
           }
-          // No need to navigate for index 0 (home), already on home
         },
         items: const [
           Icon(Icons.home, size: 30, color: Colors.white),
