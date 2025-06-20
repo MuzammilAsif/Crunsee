@@ -3,6 +3,8 @@ import 'package:crunsee/views/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class Backend {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -29,3 +31,5 @@ class Backend {
     }
   }
 }
+
+

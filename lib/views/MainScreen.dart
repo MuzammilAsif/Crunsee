@@ -1,9 +1,12 @@
+import 'package:crunsee/Backend.dart';
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
 import 'package:crunsee/CustomWidgets/customDrawer.dart';
 import 'package:crunsee/views/search.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:crunsee/views/notification.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class Mainscreen extends StatefulWidget {
   const Mainscreen({super.key});
@@ -11,17 +14,26 @@ class Mainscreen extends StatefulWidget {
   @override
   State<Mainscreen> createState() => _MainscreenState();
 }
+class ExchangeRates {
+  final Map<String, dynamic> rates;
 
+  ExchangeRates({required this.rates});
+
+  factory ExchangeRates.fromJson(Map<String, dynamic> json) {
+    return ExchangeRates(rates: json['conversion_rates']);
+  }
+}
+ Future<ExchangeRates> fetchExchangeRates() async {
+  final url = Uri.parse('https://v6.exchangerate-api.com/v6/b2cd243453688f5ef8eab529/latest/USD');
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    return ExchangeRates.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load exchange rates');
+  }
+}
 class _MainscreenState extends State<Mainscreen> {
-  final List<Map<String, dynamic>> currencyPairs = const [
-    {'pair': 'USD/PKR', 'rate': '277.50', 'isUp': true},
-    {'pair': 'EUR/PKR', 'rate': '302.10', 'isUp': false},
-    {'pair': 'GBP/PKR', 'rate': '353.90', 'isUp': true},
-    {'pair': 'AUD/PKR', 'rate': '185.00', 'isUp': false},
-    {'pair': 'CAD/PKR', 'rate': '205.20', 'isUp': true},
-    {'pair': 'SAR/PKR', 'rate': '74.12', 'isUp': true},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,21 +42,68 @@ class _MainscreenState extends State<Mainscreen> {
       backgroundColor: const Color(0xFF1C1C1E),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
-          itemCount: currencyPairs.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1.3,
-          ),
-          itemBuilder: (context, index) {
-            final item = currencyPairs[index];
-            return CurrencyBox(
-              pair: item['pair'],
-              rate: item['rate'],
-              isUp: item['isUp'],
-            );
+        child: FutureBuilder<ExchangeRates>(
+          future: fetchExchangeRates(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  'Error: ${snapshot.error}',
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            } else {
+              final rates = snapshot.data!.rates;
+
+              final pairs = [
+                {'pair': 'USD/PKR', 'rate': rates['PKR'], 'isUp': true},
+                {
+                  'pair': 'EUR/PKR',
+                  'rate': rates['EUR'] / rates['PKR'],
+                  'isUp': false,
+                },
+                {
+                  'pair': 'GBP/PKR',
+                  'rate': rates['GBP'] / rates['PKR'],
+                  'isUp': true,
+                },
+                {
+                  'pair': 'AUD/PKR',
+                  'rate': rates['AUD'] / rates['PKR'],
+                  'isUp': false,
+                },
+                {
+                  'pair': 'CAD/PKR',
+                  'rate': rates['CAD'] / rates['PKR'],
+                  'isUp': true,
+                },
+                {
+                  'pair': 'SAR/PKR',
+                  'rate': rates['SAR'] / rates['PKR'],
+                  'isUp': true,
+                },
+              ];
+
+              return GridView.builder(
+                itemCount: pairs.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 1.3,
+                ),
+                itemBuilder: (context, index) {
+                  final item = pairs[index];
+                  return CurrencyBox(
+                    pair: item['pair'],
+                    rate: (item['rate'] as double).toStringAsFixed(2),
+                    isUp: item['isUp'],
+                  );
+                },
+              );
+            }
           },
         ),
       ),
@@ -54,7 +113,7 @@ class _MainscreenState extends State<Mainscreen> {
         index: 0,
         color: Colors.blue,
         animationDuration: const Duration(milliseconds: 300),
-        onTap: (index){
+        onTap: (index) {
           if (index == 0) {
             Navigator.pushReplacement(
               context,
@@ -68,7 +127,9 @@ class _MainscreenState extends State<Mainscreen> {
           } else if (index == 2) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const NotificationScreen()),
+              MaterialPageRoute(
+                builder: (context) => const NotificationScreen(),
+              ),
             );
           }
         },
@@ -81,7 +142,6 @@ class _MainscreenState extends State<Mainscreen> {
     );
   }
 }
-
 class CurrencyBox extends StatelessWidget {
   final String pair;
   final String rate;
