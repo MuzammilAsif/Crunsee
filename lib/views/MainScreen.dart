@@ -42,7 +42,7 @@ class _MainscreenState extends State<Mainscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Customappbar(),
-      drawer: Customdrawer(),
+      drawer: CustomDrawer(),
       backgroundColor: const Color(0xFF1C1C1E),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

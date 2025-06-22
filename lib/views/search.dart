@@ -1,4 +1,5 @@
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
+import 'package:crunsee/CustomWidgets/customDrawer.dart';
 import 'package:crunsee/data/network/api_services.dart';
 import 'package:crunsee/model/rates_model.dart';
 import 'package:crunsee/views/widgets/conversion_card.dart';
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Customappbar(),
+      drawer: CustomDrawer(),
       body: FutureBuilder<RatesModel>(
         future: ratesModel,
         builder: (context, snapshot){

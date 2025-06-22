@@ -1,4 +1,5 @@
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
+import 'package:crunsee/CustomWidgets/customDrawer.dart';
 // import 'package:crunsee/CustomWidgets/CustomBottomBar.dart';
 import 'package:crunsee/views/MainScreen.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Customappbar(),
+      drawer:CustomDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

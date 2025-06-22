@@ -114,17 +114,17 @@ Widget build(BuildContext context) {
         controller: _controller,
         children: const [
           IntroPage(
-            imageUrl: '/lib/images/currency-exchange-icon-on-dark-background-vector-37708912-removebg-preview.png',
+            imageUrl: '/lib/assets/images/currency-exchange-icon-on-dark-background-vector-37708912-removebg-preview.png',
             title: 'Live Currency Rates',
             subtitle: 'Get up-to-date exchange rates for all major currencies.',
           ),
           IntroPage(
-            imageUrl: '/lib/images/linear-graph-chart-icon-vector-20976131-removebg-preview.png',
+            imageUrl: '/lib/assets/images/linear-graph-chart-icon-vector-20976131-removebg-preview.png',
             title: 'Interactive Charts',
             subtitle: 'Visualize historical data and track market trends easily.',
           ),
           IntroPage(
-            imageUrl: '/lib/images/new-message-inbox-notification-vector-icon-two-incoming-email-messages-118842081-removebg-preview.png',
+            imageUrl: '/lib/assets/images/new-message-inbox-notification-vector-icon-two-incoming-email-messages-118842081-removebg-preview.png',
             title: 'Smart Alerts',
             subtitle: 'Set alerts for your desired rates and stay informed.',
           ),

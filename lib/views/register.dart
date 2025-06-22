@@ -30,8 +30,10 @@ class _RegisterState extends State<Register> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [ Color(0xFF4A00E0), // Example purple
-          Color(0xFF8E2DE2), ],
+            colors: [
+              Color(0xFF4A00E0), // Example purple
+              Color(0xFF8E2DE2),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -42,7 +44,7 @@ class _RegisterState extends State<Register> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.network('/lib/images/logo.png', height: 150),
+                Image.network('/lib/assets/images/logo.png', height: 150),
                 const SizedBox(height: 24),
 
                 /// Email
@@ -81,7 +83,8 @@ class _RegisterState extends State<Register> {
                   controller: confirmPassword,
                   obscureText: _isConfirmPasswordHidden,
                   style: const TextStyle(color: Colors.white),
-                  decoration: _buildInputDecoration('Confirm Password').copyWith(
+                  decoration:
+                      _buildInputDecoration('Confirm Password').copyWith(
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isConfirmPasswordHidden
@@ -91,8 +94,7 @@ class _RegisterState extends State<Register> {
                       ),
                       onPressed: () {
                         setState(() {
-                          _isConfirmPasswordHidden =
-                              !_isConfirmPasswordHidden;
+                          _isConfirmPasswordHidden = !_isConfirmPasswordHidden;
                         });
                       },
                     ),

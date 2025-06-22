@@ -58,7 +58,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image.network(
-                        '/lib/images/logo.png', // Replace with valid path
+                        '/lib/assets/images/logo.png', // Replace with valid path
                         height: 150,
                       ),
                       const SizedBox(height: 32),
