@@ -1,6 +1,5 @@
 import 'package:crunsee/CustomWidgets/CustomAppBar.dart';
 import 'package:crunsee/CustomWidgets/customDrawer.dart';
-// import 'package:crunsee/CustomWidgets/CustomBottomBar.dart';
 import 'package:crunsee/views/MainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -13,12 +12,32 @@ class NotificationScreen extends StatefulWidget {
   State<NotificationScreen> createState() => NotificationScreenState();
 }
 
+final List<Map<String, String>> dummyNotifications = [
+  {
+    "title": "Exchange Rate Updated",
+    "message": "1 USD is now equal to 278.50 PKR.",
+  },
+  {
+    "title": "New Currency Added",
+    "message": "You can now convert between PKR and AED.",
+  },
+  {
+    "title": "App Update Available",
+    "message":
+        "Version 2.1 includes improved conversion accuracy and new features.",
+  },
+  {
+    "title": "Conversion Tip",
+    "message": "Use currency history graphs to make better decisions.",
+  },
+];
+
 class NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Customappbar(),
-      drawer:CustomDrawer(),
+      drawer: CustomDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,12 +46,20 @@ class NotificationScreenState extends State<NotificationScreen> {
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (context, index) {
-                return ListTile(
-                title: Text("Notification title", style: TextStyle(color: Colors.white)),
-                subtitle: Text("Notification text", style: TextStyle(color: Colors.white)),
-                trailing: Icon(Icons.notifications, color: Colors.white),
-              );
-              },),
+                  return ListTile(
+                    title: Text(
+                      dummyNotifications[index]["title"]!,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      dummyNotifications[index]["message"]!,
+                      style: const TextStyle(color: Colors.white70),
+                    ),
+                    trailing:
+                        const Icon(Icons.notifications, color: Colors.white),
+                  );
+                },
+              ),
             )
           ],
         ),
@@ -43,7 +70,7 @@ class NotificationScreenState extends State<NotificationScreen> {
         index: 2,
         color: Colors.blue,
         // animationDuration: const Duration(milliseconds: 300),
-        onTap: (index){
+        onTap: (index) {
           if (index == 0) {
             Navigator.pushReplacement(
               context,
@@ -57,7 +84,8 @@ class NotificationScreenState extends State<NotificationScreen> {
           } else if (index == 2) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const NotificationScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const NotificationScreen()),
             );
           }
         },

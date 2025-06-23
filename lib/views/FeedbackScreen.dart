@@ -1,3 +1,4 @@
+import 'package:crunsee/Backend.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackScreen extends StatefulWidget {
@@ -15,38 +16,39 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     _feedbackController.dispose();
     super.dispose();
   }
+  Backend backend = Backend();
 
-  void _submitFeedback() {
-    final String feedback = _feedbackController.text.trim();
+  // void _submitFeedback() {
+  //   final String feedback = _feedbackController.text.trim();
 
-    if (feedback.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Feedback can't be empty!",
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-      return;
-    }
+  //   if (feedback.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text(
+  //           "Feedback can't be empty!",
+  //           style: TextStyle(color: Colors.white),
+  //         ),
+  //         backgroundColor: Colors.redAccent,
+  //       ),
+  //     );
+  //     return;
+  //   }
 
-    // 👇 Backend/API/database logic yahan connect kar sakte hain
-    print("📝 Feedback submitted: $feedback");
+  //   // 👇 Backend/API/database logic yahan connect kar sakte hain
+  //   print("📝 Feedback submitted: $feedback");
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          "Thank you for your valuable feedback!",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-      ),
-    );
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     const SnackBar(
+  //       content: Text(
+  //         "Thank you for your valuable feedback!",
+  //         style: TextStyle(color: Colors.white),
+  //       ),
+  //       backgroundColor: Colors.green,
+  //     ),
+  //   );
 
-    _feedbackController.clear();
-  }
+  //   _feedbackController.clear();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
-              onPressed: _submitFeedback,
+              onPressed: () async {
+                await backend.sendFeedbackToEmail(_feedbackController.text);
+                _feedbackController.clear();
+              },
               icon: const Icon(Icons.send),
               label: const Text("Submit"),
               style: ElevatedButton.styleFrom(

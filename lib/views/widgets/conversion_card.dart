@@ -59,7 +59,6 @@ class _ConversionCardState extends State<ConversionCard> {
             decoration: const InputDecoration(
               focusColor: Colors.white,
               hintText: 'Enter Amount',
-              hintStyle: TextStyle(color: Colors.white70),
             ),
             keyboardType: TextInputType.number,
             style: const TextStyle(color: Colors.white),

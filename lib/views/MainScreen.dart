@@ -27,7 +27,7 @@ class ExchangeRates {
 
 Future<ExchangeRates> fetchExchangeRates() async {
   final url = Uri.parse(
-      'https://v6.exchangerate-api.com/v6/b2cd243453688f5ef8eab529/latest/PKR');
+      'https://v6.exchangerate-api.com/v6/b2cd243453688f5ef8eab529/latest/USD');
   final response = await http.get(url);
 
   if (response.statusCode == 200) {

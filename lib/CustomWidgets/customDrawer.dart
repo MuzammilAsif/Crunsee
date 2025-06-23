@@ -340,7 +340,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
             if (showAppSettings)
               Column(
                 children: [
-                  _drawerSubItem(Icons.notifications, "Notifications", context),
                   _drawerSubItem(Icons.feedback, "Feedback", context,
                       route: '/feedback'),
                   _drawerSubItem(Icons.help_outline, "FAQ", context,
