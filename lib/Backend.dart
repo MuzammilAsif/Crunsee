@@ -96,39 +96,32 @@ class Backend {
   }
 
   // Function to update user data
-  Future<void> updateUserData({String? username, String? password}) async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      print("No user logged in.");
-      return;
-    }
+  Future<void> updateUserData({String? username, String? password, String? imgurl}) async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null) return;
 
-    // Only add non-empty fields to the update map
-    Map<String, dynamic> updates = {};
+  // Create a map of fields to update
+  Map<String, dynamic> updates = {};
 
-    if (username != null && username.trim().isNotEmpty) {
-      updates['Username'] = username.trim();
-    }
-    if (password != null && password.trim().isNotEmpty) {
-      updates['password'] = password.trim();
-    }
-
-    if (updates.isEmpty) {
-      print("No fields to update.");
-      return;
-    }
-
-    try {
-      await FirebaseFirestore.instance
-          .collection('UserData')
-          .doc(user.uid)
-          .update(updates);
-
-      print("User data updated successfully.");
-    } catch (e) {
-      print("Error updating user data: $e");
-    }
+  if (username != null && username.isNotEmpty) {
+    updates['Username'] = username;
   }
+  if (password != null && password.isNotEmpty) {
+    updates['password'] = password;
+  }
+  if (imgurl != null && imgurl.isNotEmpty) {
+    updates['imgurl'] = imgurl;
+  }
+
+  if (updates.isNotEmpty) {
+    await FirebaseFirestore.instance
+        .collection('UserData')
+        .doc(user.uid)
+        .update(updates);
+  } else {
+    print("No fields to update");
+  }
+}
 
   Future<void> sendFeedbackToEmail(String feedback) async {
     const serviceId = 'service_7dqdnkf';

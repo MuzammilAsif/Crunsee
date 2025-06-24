@@ -32,6 +32,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   File? _pickedImage;
   String _usermail = "Loading..."; // Added definition for _usermail
   String _userName = "Loading...";
+  
 
   Future<void> filePick(ImageSource source) async {
     final picker = ImagePicker();
@@ -179,6 +180,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     String current = _currentPasswordController.text.trim();
     String newPass = _newPasswordController.text.trim();
     String confirm = _confirmPasswordController.text.trim();
+    
 
     if (newPass != confirm) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -230,10 +232,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
               decoration: const BoxDecoration(color: Colors.blueAccent),
               currentAccountPicture: CircleAvatar(
                 radius: 50,
-                backgroundImage: _pickedImage != null
-                    ? FileImage(_pickedImage!) // ✅ From gallery
-                    :  AssetImage('lib/assets/images/default_img.png')
-                        as ImageProvider,
+                backgroundImage:  imgurl!.isNotEmpty
+                    ? NetworkImage(imgurl!)
+                    : const AssetImage('assets/images/default_avatar.png')
+                        as ImageProvider<Object>,
               ),
               accountName: Text(_userName),
               accountEmail:
@@ -280,6 +282,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             filePick(ImageSource.gallery);
                             if (_imgFile != null) {
                               await uploadImage();
+                              backend.updateUserData(
+                                imgurl: imgurl,
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -309,9 +314,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     const SizedBox(height: 10),
                     ElevatedButton.icon(
                       onPressed: () async {
-                        await backend.updateUserData(
-                          password: _newPasswordController.text.trim(),
-                        );
+                        await changePassword();
+                        _currentPasswordController.clear();
                       },
                       icon: const Icon(Icons.lock_reset),
                       label: const Text("Change Password"),

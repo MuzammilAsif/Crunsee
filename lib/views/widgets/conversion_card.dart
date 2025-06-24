@@ -127,10 +127,10 @@ class _ConversionCardState extends State<ConversionCard> {
             textAlign: TextAlign.center,
           ),
           const Spacer(),
-          const Text('Currency Rates by Open Exchange Rates', style: TextStyle(
-            color: Colors.white70,
-            fontSize: 12,
-          )),
+          // const Text('Currency Rates by Open Exchange Rates', style: TextStyle(
+          //   color: Colors.white70,
+          //   fontSize: 12,
+          // )),
         ],
       ),
     );
